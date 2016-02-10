@@ -14,6 +14,7 @@
 		126C5AF01C6BDDC000A76846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 126C5AEE1C6BDDC000A76846 /* LaunchScreen.storyboard */; };
 		126C5AFB1C6BDDC000A76846 /* PulseiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C5AFA1C6BDDC000A76846 /* PulseiOSTests.swift */; };
 		126C5B061C6BDDC000A76846 /* PulseiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C5B051C6BDDC000A76846 /* PulseiOSUITests.swift */; };
+		1BF97AB30C683D83CC617FF5 /* Pods_PulseiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94830E2E95818B34D0886A10 /* Pods_PulseiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,9 @@
 		126C5B011C6BDDC000A76846 /* PulseiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		126C5B051C6BDDC000A76846 /* PulseiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseiOSUITests.swift; sourceTree = "<group>"; };
 		126C5B071C6BDDC000A76846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CCEE41B0349D0A9B647284E /* Pods-PulseiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PulseiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PulseiOS/Pods-PulseiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		7A5C516A04E808B37288D5B3 /* Pods-PulseiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PulseiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PulseiOS/Pods-PulseiOS.release.xcconfig"; sourceTree = "<group>"; };
+		94830E2E95818B34D0886A10 /* Pods_PulseiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PulseiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF97AB30C683D83CC617FF5 /* Pods_PulseiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +86,8 @@
 				126C5AF91C6BDDC000A76846 /* PulseiOSTests */,
 				126C5B041C6BDDC000A76846 /* PulseiOSUITests */,
 				126C5AE31C6BDDC000A76846 /* Products */,
+				2F809D121CAC88C8CE6C6255 /* Pods */,
+				9E2C0D94923B54356748EB2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +132,23 @@
 			path = PulseiOSUITests;
 			sourceTree = "<group>";
 		};
+		2F809D121CAC88C8CE6C6255 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4CCEE41B0349D0A9B647284E /* Pods-PulseiOS.debug.xcconfig */,
+				7A5C516A04E808B37288D5B3 /* Pods-PulseiOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9E2C0D94923B54356748EB2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94830E2E95818B34D0886A10 /* Pods_PulseiOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 126C5B0A1C6BDDC000A76846 /* Build configuration list for PBXNativeTarget "PulseiOS" */;
 			buildPhases = (
+				80224AB6871FF0643E28EACA /* Check Pods Manifest.lock */,
 				126C5ADE1C6BDDC000A76846 /* Sources */,
 				126C5ADF1C6BDDC000A76846 /* Frameworks */,
 				126C5AE01C6BDDC000A76846 /* Resources */,
+				D67EEBD0C139BAB4860EB0D5 /* Embed Pods Frameworks */,
+				487782EFAE8D90B5E1E62B44 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +277,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		487782EFAE8D90B5E1E62B44 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PulseiOS/Pods-PulseiOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		80224AB6871FF0643E28EACA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D67EEBD0C139BAB4860EB0D5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PulseiOS/Pods-PulseiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		126C5ADE1C6BDDC000A76846 /* Sources */ = {
@@ -397,6 +472,7 @@
 		};
 		126C5B0B1C6BDDC000A76846 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4CCEE41B0349D0A9B647284E /* Pods-PulseiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PulseiOS/Info.plist;
@@ -408,6 +484,7 @@
 		};
 		126C5B0C1C6BDDC000A76846 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A5C516A04E808B37288D5B3 /* Pods-PulseiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PulseiOS/Info.plist;
@@ -484,6 +561,7 @@
 				126C5B0C1C6BDDC000A76846 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		126C5B0D1C6BDDC000A76846 /* Build configuration list for PBXNativeTarget "PulseiOSTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +570,7 @@
 				126C5B0F1C6BDDC000A76846 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		126C5B101C6BDDC000A76846 /* Build configuration list for PBXNativeTarget "PulseiOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +579,7 @@
 				126C5B121C6BDDC000A76846 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
