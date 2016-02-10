@@ -3,7 +3,7 @@
  * REALM CONFIDENTIAL
  * __________________
  *
- *  [2011] - [2015] Realm Inc
+ *  [2011] - [2012] Realm Inc
  *  All Rights Reserved.
  *
  * NOTICE:  All information contained herein is, and remains
@@ -626,10 +626,7 @@ public:
     /// destroy_deep() for every contained 'ref' element.
     static void destroy_deep(MemRef, Allocator&) noexcept;
 
-    Allocator& get_alloc() const noexcept 
-    { 
-        return m_alloc;     
-    }
+    Allocator& get_alloc() const noexcept { return m_alloc; }
 
     // Serialization
 

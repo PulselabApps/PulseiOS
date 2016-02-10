@@ -27,9 +27,6 @@
 #import "RLMSchema_Private.h"
 #import "RLMSwiftSupport.h"
 
-#import <realm/mixed.hpp>
-#import <realm/table_view.hpp>
-
 #include <sys/sysctl.h>
 #include <sys/types.h>
 
@@ -226,38 +223,31 @@ NSArray *RLMCollectionValueForKey(id<RLMFastEnumerable> collection, NSString *ke
 }
 
 void RLMCollectionSetValueForKey(id<RLMFastEnumerable> collection, NSString *key, id value) {
-    realm::TableView tv = [collection tableView];
-    if (tv.size() == 0) {
+    size_t count = collection.count;
+    if (count == 0) {
         return;
     }
 
     RLMRealm *realm = collection.realm;
     RLMObjectSchema *objectSchema = collection.objectSchema;
     RLMObjectBase *accessor = [[objectSchema.accessorClass alloc] initWithRealm:realm schema:objectSchema];
-    for (size_t i = 0; i < tv.size(); i++) {
-        accessor->_row = tv[i];
+    realm::Table *table = objectSchema.table;
+    for (size_t i = 0; i < count; i++) {
+        size_t rowIndex = [collection indexInSource:i];
+        accessor->_row = (*table)[rowIndex];
         RLMInitializeSwiftAccessorGenerics(accessor);
         [accessor setValue:value forKey:key];
     }
 }
 
 
-static NSException *RLMException(NSString *reason, NSDictionary *additionalUserInfo) {
-    NSMutableDictionary *userInfo = @{RLMRealmVersionKey: REALM_COCOA_VERSION,
-                                      RLMRealmCoreVersionKey: @REALM_VERSION}.mutableCopy;
-    if (additionalUserInfo != nil) {
-        [userInfo addEntriesFromDictionary:additionalUserInfo];
-    }
-    NSException *e = [NSException exceptionWithName:RLMExceptionName
-                                             reason:reason
-                                           userInfo:userInfo];
-    return e;
-}
-
 NSException *RLMException(NSString *fmt, ...) {
     va_list args;
     va_start(args, fmt);
-    NSException *e = RLMException([[NSString alloc] initWithFormat:fmt arguments:args], @{});
+    NSException *e = [NSException exceptionWithName:RLMExceptionName
+                                             reason:[[NSString alloc] initWithFormat:fmt arguments:args]
+                                           userInfo:@{RLMRealmVersionKey: REALM_COCOA_VERSION,
+                                                      RLMRealmCoreVersionKey: @REALM_VERSION}];
     va_end(args);
     return e;
 }
@@ -281,21 +271,6 @@ NSError *RLMMakeError(RLMError code, const realm::util::File::AccessError& excep
                                       @"Error Code": @(code)}];
 }
 
-NSError *RLMMakeError(RLMError code, const realm::RealmFileException& exception) {
-    return [NSError errorWithDomain:RLMErrorDomain
-                               code:code
-                           userInfo:@{NSLocalizedDescriptionKey: @(exception.what()),
-                                      NSFilePathErrorKey: @(exception.path().c_str()),
-                                      @"Error Code": @(code)}];
-}
-
-NSError *RLMMakeError(std::system_error const& exception) {
-    return [NSError errorWithDomain:RLMErrorDomain
-                               code:exception.code().value()
-                           userInfo:@{NSLocalizedDescriptionKey: @(exception.what()),
-                                      @"Error Code": @(exception.code().value())}];
-}
-
 NSError *RLMMakeError(NSException *exception) {
     return [NSError errorWithDomain:RLMErrorDomain
                                code:0
@@ -307,11 +282,7 @@ void RLMSetErrorOrThrow(NSError *error, NSError **outError) {
         *outError = error;
     }
     else {
-        NSString *msg = error.localizedDescription;
-        if (error.userInfo[NSFilePathErrorKey]) {
-            msg = [NSString stringWithFormat:@"%@: %@", error.userInfo[NSFilePathErrorKey], error.localizedDescription];
-        }
-        @throw RLMException(msg, @{NSUnderlyingErrorKey: error});
+        @throw RLMException(@"%@", error.localizedDescription);
     }
 }
 
@@ -327,6 +298,12 @@ BOOL RLMIsObjectSubclass(Class klass) {
 
 BOOL RLMIsDebuggerAttached()
 {
+    // NOTE: Debugger checks are a workaround for LLDB hangs when dealing with encrypted realms (issue #1625).
+    // Skipping the checks is necessary for encryption tests to run, but can result in hangs when debugging
+    // other tests.
+    if (getenv("REALM_SKIP_DEBUGGER_CHECKS"))
+        return NO;
+
     int name[] = {
         CTL_KERN,
         KERN_PROC,
@@ -342,29 +319,4 @@ BOOL RLMIsDebuggerAttached()
     }
 
     return (info.kp_proc.p_flag & P_TRACED) != 0;
-}
-
-id RLMMixedToObjc(realm::Mixed const& mixed) {
-    switch (mixed.get_type()) {
-        case realm::type_String:
-            return RLMStringDataToNSString(mixed.get_string());
-        case realm::type_Int: {
-            return @(mixed.get_int());
-        case realm::type_Float:
-            return @(mixed.get_float());
-        case realm::type_Double:
-            return @(mixed.get_double());
-        case realm::type_Bool:
-            return @(mixed.get_bool());
-        case realm::type_DateTime:
-            return RLMDateTimeToNSDate(mixed.get_datetime());
-        case realm::type_Binary: {
-            return RLMBinaryDataToNSData(mixed.get_binary());
-        }
-        case realm::type_Link:
-        case realm::type_LinkList:
-        default:
-            @throw RLMException(@"Invalid data type for RLMPropertyTypeAny property.");
-        }
-    }
 }

@@ -84,12 +84,18 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-PulseiOS/ApiModel.framework"
+  install_framework "Pods-PulseiOS/Alamofire.framework"
   install_framework "Pods-PulseiOS/Realm.framework"
   install_framework "Pods-PulseiOS/RealmSwift.framework"
   install_framework "Pods-PulseiOS/SocketIOClientSwift.framework"
+  install_framework "Pods-PulseiOS/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-PulseiOS/ApiModel.framework"
+  install_framework "Pods-PulseiOS/Alamofire.framework"
   install_framework "Pods-PulseiOS/Realm.framework"
   install_framework "Pods-PulseiOS/RealmSwift.framework"
   install_framework "Pods-PulseiOS/SocketIOClientSwift.framework"
+  install_framework "Pods-PulseiOS/SwiftyJSON.framework"
 fi

@@ -1,18 +1,28 @@
 PODS:
-  - Realm (0.98.0):
-    - Realm/Headers (= 0.98.0)
-  - Realm/Headers (0.98.0)
-  - RealmSwift (0.98.0):
-    - Realm (= 0.98.0)
+  - Alamofire (3.2.0)
+  - APIModel (0.10.2):
+    - Alamofire (~> 3.0)
+    - RealmSwift (~> 0.96.3)
+    - SwiftyJSON (~> 2.3.0)
+  - Realm (0.96.3):
+    - Realm/Headers (= 0.96.3)
+  - Realm/Headers (0.96.3)
+  - RealmSwift (0.96.3):
+    - Realm (= 0.96.3)
   - Socket.IO-Client-Swift (5.3.3)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - RealmSwift
+  - APIModel (~> 0.10.1)
+  - RealmSwift (~> 0.96.3)
   - Socket.IO-Client-Swift (~> 5.3.2)
 
 SPEC CHECKSUMS:
-  Realm: 28efc598b8b1b378d27a222d9fc037a29ae68642
-  RealmSwift: 7ef4b9ee449d711cd5a7d69a3af1cc5cd0efb619
+  Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
+  APIModel: f764f2279102c6154787db7d3b36dbe913606877
+  Realm: 145d3cdf78a03aee71bde5381ad7e542bd541720
+  RealmSwift: aab84968aad662f61f36473d1aea019f63481505
   Socket.IO-Client-Swift: debd5c155e4299e33854fbd26bfeaafcbc6df6c6
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

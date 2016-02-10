@@ -26,17 +26,11 @@
 #import <realm/string_data.hpp>
 #import <realm/util/file.hpp>
 
-namespace realm {
-    class Mixed;
-}
-
 @class RLMObjectSchema;
 @class RLMProperty;
+@class RLMRealm;
+@class RLMSchema;
 @protocol RLMFastEnumerable;
-
-namespace realm {
-    class RealmFileException;
-}
 
 __attribute__((format(NSString, 1, 2)))
 NSException *RLMException(NSString *fmt, ...);
@@ -44,8 +38,6 @@ NSException *RLMException(std::exception const& exception);
 
 NSError *RLMMakeError(RLMError code, std::exception const& exception);
 NSError *RLMMakeError(RLMError code, const realm::util::File::AccessError&);
-NSError *RLMMakeError(RLMError code, const realm::RealmFileException&);
-NSError *RLMMakeError(std::system_error const& exception);
 NSError *RLMMakeError(NSException *exception);
 
 void RLMSetErrorOrThrow(NSError *error, NSError **outError);
@@ -169,5 +161,3 @@ static inline realm::DateTime RLMDateTimeForNSDate(__unsafe_unretained NSDate *c
 static inline NSUInteger RLMConvertNotFound(size_t index) {
     return index == realm::not_found ? NSNotFound : index;
 }
-
-id RLMMixedToObjc(realm::Mixed const& value);

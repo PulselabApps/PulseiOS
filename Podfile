@@ -4,8 +4,9 @@
 use_frameworks!
 
 target 'PulseiOS' do
-    pod 'RealmSwift'
+    pod 'RealmSwift', '~> 0.96.3'
     pod 'Socket.IO-Client-Swift', '~> 5.3.2'
+    pod 'APIModel', '~> 0.10.1'
 end
 
 target 'PulseiOSTests' do

@@ -3,7 +3,7 @@
  * REALM CONFIDENTIAL
  * __________________
  *
- *  [2011] - [2015] Realm Inc
+ *  [2011] - [2012] Realm Inc
  *  All Rights Reserved.
  *
  * NOTICE:  All information contained herein is, and remains
@@ -53,8 +53,6 @@ class LinkListColumn;
 class BacklinkColumn;
 template<class>
 class Columns;
-template<class>
-class SubQuery;
 
 struct Link {};
 typedef Link LinkList;
@@ -328,9 +326,6 @@ public:
 
     template<class T>
     Columns<T> column(size_t column); // FIXME: Should this one have been declared noexcept?
-
-    template <class T>
-    SubQuery<T> column(size_t column, Query subquery);
 
     // Table size and deletion
     bool is_empty() const noexcept;
@@ -769,9 +764,6 @@ public:
 #endif
 
     class Parent;
-    using HandoverPatch = TableHandoverPatch;
-    static void generate_patch(const TableRef& ref, std::unique_ptr<HandoverPatch>& patch);
-    static TableRef create_from_and_consume_patch(std::unique_ptr<HandoverPatch>& patch, Group& group);
 
 protected:
     /// Get a pointer to the accessor of the specified subtable. The
@@ -1409,15 +1401,16 @@ inline void Table::bump_version(bool bump_global) const noexcept
         if (const Table* parent = get_parent_table_ptr())
             parent->bump_version(false);
         // Recurse through linked tables, use m_mark to avoid infinite recursion
-        for (auto& column : m_cols) {
+        size_t limit = m_cols.size();
+        for (size_t i = 0; i < limit; ++i) {
             // We may meet a null pointer in place of a backlink column, pending
             // replacement with a new one. This can happen ONLY when creation of
             // the corresponding forward link column in the origin table is
             // pending as well. In this case it is ok to just ignore the zeroed
             // backlink column, because the origin table is guaranteed to also
             // be refreshed/marked dirty and hence have it's version bumped.
-            if (column != nullptr)
-                column->bump_link_origin_table_version();
+            if (ColumnBase* col = m_cols[i])
+                col->bump_link_origin_table_version();
         }
     }
 }
@@ -1662,13 +1655,6 @@ inline Columns<T> Table::column(size_t column)
 
     m_link_chain.clear();
     return Columns<T>(column, this, tmp);
-}
-
-template<class T>
-SubQuery<T> Table::column(size_t column_ndx, Query subquery)
-{
-    static_assert(std::is_same<T, LinkList>::value, "A subquery must involve a link list column");
-    return SubQuery<T>(column<T>(column_ndx), std::move(subquery));
 }
 
 // For use by queries

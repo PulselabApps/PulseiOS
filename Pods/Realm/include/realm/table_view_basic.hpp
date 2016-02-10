@@ -3,7 +3,7 @@
  * REALM CONFIDENTIAL
  * __________________
  *
- *  [2011] - [2015] Realm Inc
+ *  [2011] - [2012] Realm Inc
  *  All Rights Reserved.
  *
  * NOTICE:  All information contained herein is, and remains
@@ -126,10 +126,10 @@ protected:
     Impl m_impl;
 
     BasicTableViewBase() {}
-    BasicTableViewBase(const BasicTableViewBase& tv, typename Impl::HandoverPatch& patch,
+    BasicTableViewBase(const BasicTableViewBase& tv, typename Impl::Handover_patch& patch,
                        ConstSourcePayload mode)
         : m_impl(tv.m_impl, patch, mode) { }
-    BasicTableViewBase(BasicTableViewBase& tv, typename Impl::HandoverPatch& patch,
+    BasicTableViewBase(BasicTableViewBase& tv, typename Impl::Handover_patch& patch,
                        MutableSourcePayload mode)
         : m_impl(tv.m_impl, patch, mode) { }
     BasicTableViewBase(Impl i): m_impl(std::move(i)) {}
@@ -203,43 +203,43 @@ public:
     {
         Base::m_impl.move_assign(tv.m_impl);
     }
-    using HandoverPatch = TableViewHandoverPatch;
+    typedef TableView_Handover_patch Handover_patch;
 
     std::unique_ptr<BasicTableView<Tab>>
-    clone_for_handover(std::unique_ptr<HandoverPatch>& patch, ConstSourcePayload mode) const
+    clone_for_handover(std::unique_ptr<Handover_patch>& patch, ConstSourcePayload mode) const
     {
-        patch.reset(new HandoverPatch);
+        patch.reset(new Handover_patch);
         std::unique_ptr<BasicTableView<Tab>> retval(new BasicTableView<Tab>(*this, *patch, mode));
         return retval;
     }
 
     std::unique_ptr<BasicTableView<Tab>>
-    clone_for_handover(std::unique_ptr<HandoverPatch>& patch, MutableSourcePayload mode)
+    clone_for_handover(std::unique_ptr<Handover_patch>& patch, MutableSourcePayload mode)
     {
-        patch.reset(new HandoverPatch);
+        patch.reset(new Handover_patch);
         std::unique_ptr<BasicTableView<Tab>> retval(new BasicTableView<Tab>(*this, *patch, mode));
         return retval;
     }
 
-    void apply_and_consume_patch(std::unique_ptr<HandoverPatch>& patch, Group& group)
+    void apply_and_consume_patch(std::unique_ptr<Handover_patch>& patch, Group& group)
     {
         apply_patch(*patch, group);
         patch.reset();
     }
 
-    BasicTableView(const BasicTableView<Tab>& source, HandoverPatch& patch,
+    BasicTableView(const BasicTableView<Tab>& source, Handover_patch& patch,
                    ConstSourcePayload mode):
         Base(source, patch, mode)
     {
     }
 
-    BasicTableView(BasicTableView<Tab>& source, HandoverPatch& patch,
+    BasicTableView(BasicTableView<Tab>& source, Handover_patch& patch,
                    MutableSourcePayload mode):
         Base(source, patch, mode)
     {
     }
 
-    void apply_patch(TableView::HandoverPatch& patch, Group& group)
+    void apply_patch(TableView::Handover_patch& patch, Group& group)
     {
         Base::m_impl.apply_patch(patch, group);
     }
