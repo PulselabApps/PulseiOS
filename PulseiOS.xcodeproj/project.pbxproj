@@ -15,6 +15,8 @@
 		126C5AFB1C6BDDC000A76846 /* PulseiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C5AFA1C6BDDC000A76846 /* PulseiOSTests.swift */; };
 		126C5B061C6BDDC000A76846 /* PulseiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126C5B051C6BDDC000A76846 /* PulseiOSUITests.swift */; };
 		1BF97AB30C683D83CC617FF5 /* Pods_PulseiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94830E2E95818B34D0886A10 /* Pods_PulseiOS.framework */; };
+		4A8284051C6BECC6009320EA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8284041C6BECC6009320EA /* Post.swift */; };
+		4A8284071C6BF174009320EA /* Institution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8284061C6BF174009320EA /* Institution.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		126C5B011C6BDDC000A76846 /* PulseiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		126C5B051C6BDDC000A76846 /* PulseiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseiOSUITests.swift; sourceTree = "<group>"; };
 		126C5B071C6BDDC000A76846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A8284041C6BECC6009320EA /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		4A8284061C6BF174009320EA /* Institution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Institution.swift; sourceTree = "<group>"; };
 		4CCEE41B0349D0A9B647284E /* Pods-PulseiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PulseiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PulseiOS/Pods-PulseiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7A5C516A04E808B37288D5B3 /* Pods-PulseiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PulseiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PulseiOS/Pods-PulseiOS.release.xcconfig"; sourceTree = "<group>"; };
 		94830E2E95818B34D0886A10 /* Pods_PulseiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PulseiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +108,7 @@
 		126C5AE41C6BDDC000A76846 /* PulseiOS */ = {
 			isa = PBXGroup;
 			children = (
+				4A8284031C6BEC4C009320EA /* Utilities */,
 				126C5AE51C6BDDC000A76846 /* AppDelegate.swift */,
 				126C5AE71C6BDDC000A76846 /* ViewController.swift */,
 				126C5AE91C6BDDC000A76846 /* Main.storyboard */,
@@ -139,6 +144,15 @@
 				7A5C516A04E808B37288D5B3 /* Pods-PulseiOS.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		4A8284031C6BEC4C009320EA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4A8284041C6BECC6009320EA /* Post.swift */,
+				4A8284061C6BF174009320EA /* Institution.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		9E2C0D94923B54356748EB2A /* Frameworks */ = {
@@ -331,7 +345,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A8284051C6BECC6009320EA /* Post.swift in Sources */,
 				126C5AE81C6BDDC000A76846 /* ViewController.swift in Sources */,
+				4A8284071C6BF174009320EA /* Institution.swift in Sources */,
 				126C5AE61C6BDDC000A76846 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

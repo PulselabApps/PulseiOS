@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ApiModel
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let apiConfig = ApiConfig(host: "http://pulse-rethinkdb.dokku.marze.io/api/v1")
+        
+        ApiSingleton.setInstance(ApiManager(config: apiConfig))
+        
+        
         return true
     }
 

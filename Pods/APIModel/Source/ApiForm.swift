@@ -283,6 +283,7 @@ public class Api<ModelType:Object where ModelType:ApiModel> {
     }
     
     private class func arrayFromResponseForNamespace(data: AnyObject, namespace: String) -> [AnyObject]? {
+        if let arrayData = data as? [AnyObject] { return arrayData }
         return (data[namespace] as? [AnyObject]) ?? (data[namespace.pluralize()] as? [AnyObject])
     }
     
